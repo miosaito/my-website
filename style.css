@@ -1,13 +1,24 @@
-body {
+/* ===== RESET ===== */
+* {
   margin: 0;
-  font-family: Arial, sans-serif;
+  padding: 0;
+  box-sizing: border-box;
 }
 
-/* NAVBAR */
+/* ===== BODY ===== */
+body {
+  font-family: Arial, sans-serif;
+  line-height: 1.6;
+  background: #ffffff;
+  color: #333;
+}
+
+/* ===== NAVBAR ===== */
 header {
   display: flex;
   justify-content: space-between;
-  padding: 20px;
+  align-items: center;
+  padding: 20px 40px;
   background: black;
   color: white;
 }
@@ -16,12 +27,17 @@ nav a {
   color: white;
   margin-left: 20px;
   text-decoration: none;
+  font-size: 14px;
 }
 
-/* HERO */
+nav a:hover {
+  opacity: 0.7;
+}
+
+/* ===== HERO ===== */
 .hero {
   height: 90vh;
-  background: url("images/profile1.jpg") center/cover;
+  background: url("images/profile1.jpg") center/cover no-repeat;
   color: white;
   display: flex;
   flex-direction: column;
@@ -29,45 +45,40 @@ nav a {
   align-items: center;
 }
 
-/* SECTIONS */
+.hero h1 {
+  font-size: 40px;
+}
+
+.hero p {
+  margin-top: 10px;
+  font-size: 18px;
+}
+
+/* ===== SECTIONS ===== */
 .section {
-  padding: 60px;
+  padding: 80px 20px;
   text-align: center;
 }
 
-/* PROJECTS */
+.section h2 {
+  margin-bottom: 20px;
+}
+
+/* ===== PROJECTS GRID ===== */
 .projects {
   display: flex;
   justify-content: center;
-  gap: 20px;
-}
-
-.card {
-  width: 200px;
-}
-
-.card img {
-  width: 100%;
-  border-radius: 10px;
-}
-
-/* FOOTER */
-footer {
-  background: black;
-  color: white;
-  text-align: center;
-  padding: 20px;
-}
-
-.detail {
+  gap: 30px;
+  flex-wrap: wrap;
   margin-top: 40px;
-  padding: 20px;
-  background: #f4f4f4;
-  display: none;
 }
 
+/* ===== CARD ===== */
 .card {
-  cursor: pointer;
+  width: 220px;
+  text-decoration: none;
+  color: black;
+  display: block;
   transition: 0.3s;
 }
 
@@ -75,16 +86,78 @@ footer {
   transform: scale(1.05);
 }
 
-.detail {
-  margin-top: 40px;
-  padding: 30px;
-  background: #f9f9f9;
-  text-align: left;
-  max-width: 800px;
-  margin-left: auto;
-  margin-right: auto;
+/* ===== IMAGE FIX (IMPORTANT) ===== */
+.card img {
+  width: 100%;
+  height: 150px;
+  object-fit: cover;
+  border-radius: 10px;
 }
 
-.detail h4 {
+/* ===== CARD TEXT ===== */
+.card h3 {
+  margin-top: 10px;
+}
+
+.card p {
+  font-size: 14px;
+  color: #555;
+}
+
+/* ===== DETAIL PAGE ===== */
+.container {
+  max-width: 900px;
+  margin: auto;
+  padding: 60px 20px;
+  text-align: left;
+}
+
+.container img {
+  width: 100%;
+  border-radius: 10px;
+  margin: 30px 0;
+}
+
+/* ===== HEADINGS ===== */
+h1 {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+h2 {
+  margin-top: 40px;
+}
+
+h3 {
   margin-top: 20px;
+}
+
+/* ===== PARAGRAPH ===== */
+p {
+  margin-top: 10px;
+}
+
+/* ===== LIST ===== */
+ul {
+  margin-top: 10px;
+  padding-left: 20px;
+}
+
+/* ===== LINK (BACK BUTTON) ===== */
+a {
+  color: blue;
+}
+
+.container a {
+  display: inline-block;
+  margin-top: 40px;
+  text-decoration: none;
+}
+
+/* ===== FOOTER ===== */
+footer {
+  background: black;
+  color: white;
+  text-align: center;
+  padding: 20px;
 }

@@ -2,8 +2,23 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>My Portfolio</title>
   <link rel="stylesheet" href="style.css">
+  <style>
+    body { font-family: Arial, sans-serif; margin:0; }
+    header { display:flex; justify-content:space-between; align-items:center; padding:15px; background:#0a4f6d; color:#fff; }
+    nav a { margin-left:15px; color:#fff; text-decoration:none; }
+    .section { padding:40px 30px; max-width:900px; margin:auto; }
+    h2 { color:#0a4f6d; margin-bottom:15px; }
+    ul { line-height:1.8; }
+    .projects { display:flex; gap:20px; flex-wrap:wrap; }
+    .card { width:250px; text-decoration:none; color:#000; background:#fff; border-radius:10px; overflow:hidden; box-shadow:0 2px 5px rgba(0,0,0,0.1); }
+    .card img { width:100%; height:150px; object-fit:cover; }
+    .card h3 { margin:10px; }
+    .card p { margin:10px; }
+    footer { text-align:center; padding:15px; background:#222; color:#fff; }
+  </style>
 </head>
 <body>
 
@@ -19,16 +34,71 @@
 
 <!-- HERO -->
 <section class="hero">
-  <h1>Hello. I'm Mio Saito</h1>
-  <p>Computer Science engineer</p>
+  <h1>My name is Mio Saito</h1>
+  <p>Electrical and Computer Science Engineer Student</p>
 </section>
 
 <!-- PROFILE -->
 <section id="about" class="section">
   <h2>Profile</h2>
-  <p>
-    I am a beginner web developer learning HTML and CSS.
-  </p>
+
+  <div class="profile-table">
+
+    <div class="row">
+      <div class="year">2006</div>
+      <div class="content">Born in Ibaraki Prefecture, Japan.</div>
+    </div>
+
+    <div class="row">
+      <div class="year">Age 4</div>
+      <div class="content">
+        Started ballroom dancing (4 days/week). Achieved 4th place in an All Japan competition. Also began learning the violin.
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="year">Age 10</div>
+      <div class="content">
+        Started playing table tennis at a local club and won 1st place in a city-level competition.
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="year">2022</div>
+      <div class="content">
+        Enrolled at National Institute of Technology, Akashi College (Electrical & Computer Science).
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="year">1st Year</div>
+      <div class="content">
+        Developed a deep learning system to detect dementia from video and conversation data.
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="year">2nd Year</div>
+      <div class="content">
+        Proposed a system to scan and summarize blackboard content at an entrepreneurship summit.
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="year">3rd Year</div>
+      <div class="content">
+        Conducted astronomical research on red supergiants using a 105 cm telescope and presented at the Astronomical Society of Japan.
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="year">4th Year</div>
+      <div class="content">
+        Developed the "Walking Battery" using piezoelectric elements in shoes. Recognized by MEXT and invited to Osaka World Expo 2026. Also developed a team game project for the National Technical College Programming Contest.
+      </div>
+    </div>
+
+    </div>
 </section>
 
 <!-- PROJECTS -->
@@ -36,28 +106,23 @@
   <h2>Projects</h2>
 
   <div class="projects">
-    <div class="card" onclick="showProject('p1')">
-      <img src="images/satellite1.jpg">
-      <h3>Graduation Reserch</h3>
-      <p>Magnetic nozzle PPT for satellite attitude control</p>
-    </div>
+  <a href="project1.html" class="card">
+  <img src="images/satellite1.jpg">
+  <h3>Graduation Research</h3>
+  <p>Magnetic nozzle PPT for satellite attitude control</p>
+  </a>
 
-    <div class="card" onclick="showProject('p2')">
-      <img src="images/Kimono1.jpg">
-      <h3>AI kimono Project</h3>
-      <p>Using AI for making kimono</p>
-    </div>
+  <a href="project2.html" class="card">
+  <img src="images/Kimono1.jpg">
+  <h3>AI Kimono Project</h3>
+  <p>Using AI for making kimono</p>
+  </a>
 
-    <div class="card" onclick="showProject('p3')">
-      <img src="images/walkingBattery.jpg">
-      <h3>Walking Battery</h3>
-      <p>Generate power while Walking</p>
-    </div>
-  </div>
-
-  <div id="project-detail" class="detail">
-    <h3 id="project-title"></h3>
-    <p id="project-description"></p>
+  <a href="project3.html" class="card">
+  <img src="images/walkingBattery.jpg">
+  <h3>Walking Battery</h3>
+  <p>Generate power while walking</p>
+  </a>
   </div>
 
 </section>
@@ -73,6 +138,5 @@
   <p>e2217@s.akashi.ac.jp</p>
 </footer>
 
-<script src="script.js"></script>
 </body>
 </html>
