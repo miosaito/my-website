@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>My Portfolio</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<!-- NAVBAR -->
+<header>
+  <h2>My Portfolio</h2>
+  <nav>
+    <a href="#about">Profile</a>
+    <a href="#projects">Projects</a>
+    <a href="#contact">Contact</a>
+  </nav>
+</header>
+
+<!-- HERO -->
+<section class="hero">
+  <h1>Hello, I'm Mio Saito</h1>
+  <p>Computer Science engineer</p>
+</section>
+
+<!-- PROFILE -->
+<section id="about" class="section">
+  <h2>Profile</h2>
+  <p>
+    I am a beginner web developer learning HTML and CSS.
+  </p>
+</section>
+
+<!-- PROJECTS -->
+<section id="projects" class="section">
+  <h2>Projects</h2>
+
+  <div class="projects">
+    <div class="card" onclick="showProject('p1')">
+      <img src="images/satellite1.jpg">
+      <h3>Graduation Reserch</h3>
+      <p>Magnetic nozzle PPT for satellite attitude control</p>
+    </div>
+
+    <div class="card" onclick="showProject('p2')">
+      <img src="images/Kimono1.jpg">
+      <h3>AI kimono Project</h3>
+      <p>Using AI for making kimono</p>
+    </div>
+
+    <div class="card" onclick="showProject('p3')">
+      <img src="images/walkingBattery.jpg">
+      <h3>Walking Battery</h3>
+      <p>Generate power while Walking</p>
+    </div>
+  </div>
+
+  <div id="project-detail" class="detail">
+    <h3 id="project-title"></h3>
+    <p id="project-description"></p>
+  </div>
+
+</section>
+
+<!-- CONTACT -->
+<section id="contact" class="section">
+  <h2>Contact</h2>
+  <p>Email: e2217@s.akashi.ac.jp</p>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <p>e2217@s.akashi.ac.jp</p>
+</footer>
+
+<script src="script.js"></script>
+</body>
+</html>
