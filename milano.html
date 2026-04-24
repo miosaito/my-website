@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <title>Milano Memories</title>
+    <link rel="stylesheet" href="city.css">
+</head>
+
+<body class="theme-italy">
+
+    <header class="page-header">
+        <h1>The memories of Milano</h1>
+        <p>Italy</p>
+    </header>
+
+    <button id="back-map-btn" class="fixed-btn">← Back to Map</button>
+    <button id="reset-btn" class="fixed-btn">Reset</button>
+    <button id="spawn-btn" class="fixed-btn">
+        <div id="btn-fill"></div>
+    </button>
+
+    <script>
+        const memories = [
+            { type: 'food',      imgSrc: 'images/Milano/foods/Pizza.jpg', text: 'Authentic Milano Pizza incredibly huge slice!' },
+            { type: 'landscape', imgSrc: 'images/Milano/landscape/Colosseum.jpg', text: 'Iconic Colosseum truly inspiring!' },
+            { type: 'food',      imgSrc: 'images/Milano/foods/woffle.png', text: 'Classic Waffle House perfect breakfast spot!' },
+            { type: 'landscape', imgSrc: 'images/Milano/landscape/musicSchool.png', text: 'Gorgeous music school venue elegant atmosphere!' },
+            { type: 'food',      imgSrc: 'images/Milano/foods/livekitchen.jpg', text: 'Live kitchen restaurant freshly cooked experience!' },
+            { type: 'landscape', imgSrc: 'images/Milano/landscape/Libraly.png', text: 'Grand library that looks like a castle!' },
+            { type: 'food',      imgSrc: 'images/Milano/foods/stakeshrimp.png', text: 'Steak & Shrimp the best I\'ve ever had!' },
+            { type: 'landscape', imgSrc: 'images/Milano/landscape/rabit1.jpg', text: 'Cute bunny in the garden so adorable!' },
+            { type: 'food',      imgSrc: 'images/Milano/foods/kinderjoy.png', text: 'Favorite Kinder chocolate sweet treat I love!' },
+            { type: 'landscape', imgSrc: 'images/Milano/landscape/squirrel.png', text: 'Squirrel in the big city such a fun surprise!' }
+        ];
+    </script>
+
+    <script src="city.js"></script>
+
+</body>
+</html>

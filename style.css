@@ -462,7 +462,7 @@ p { margin-top: 10px; }
     justify-content: center;
     text-align: center;
     
-    background-color: #d2acec; 
+    background-color: #f2ecf8; 
     color: #0a4f6d;
     border: 3px solid #0a4f6d; 
     font-size: 21px;
@@ -475,6 +475,6 @@ p { margin-top: 10px; }
 }
 
 .map-toggle-btn:hover { 
-    background-color: #f0f0f0; 
+    background-color: #dfbbe7; 
     transform: scale(1.05);
 }

@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <title>Ibaraki Memories</title>
+    <link rel="stylesheet" href="city.css">
+</head>
+
+<body class="theme-ibaraki">
+
+    <header class="page-header">
+        <h1>The memories of Ibaraki</h1>
+        <p>Japan</p>
+    </header>
+
+    <button id="back-map-btn" class="fixed-btn">← Back to Map</button>
+    <button id="reset-btn" class="fixed-btn">Reset</button>
+    <button id="spawn-btn" class="fixed-btn">
+        <div id="btn-fill"></div>
+    </button>
+
+    <script>
+        const memories = [
+            { type: 'food',      imgSrc: 'images/Ibaraki/foods/SakuraMochi.jpg', text: 'Authentic Ibaraki Sakura Mochi incredibly delicious!' },
+            { type: 'landscape', imgSrc: 'images/Ibaraki/landscape/Tsukuba.jpg', text: 'Beautiful Tsukuba with stunning views!' },
+            { type: 'food',      imgSrc: 'images/Ibaraki/foods/KinugawaSoba.jpg', text: 'Delicious Kinugawa Soba perfect for cold weather!' },
+            { type: 'landscape', imgSrc: 'images/Ibaraki/landscape/Okutama.jpg', text: 'Serene Okutama with breathtaking natural beauty!' },
+            { type: 'food',      imgSrc: 'images/Ibaraki/foods/ShirakawaUdon.jpg', text: 'Tasty Shirakawa Udon a local favorite!' },
+            { type: 'landscape', imgSrc: 'images/Ibaraki/landscape/MountIbuki.jpg', text: 'Majestic Mount Ibuki offering panoramic vistas!' },
+            { type: 'food',      imgSrc: 'images/Ibaraki/foods/KasugaTakamiya.jpg', text: 'Authentic Kasuga Takamiya cuisine a true delight!' },
+            { type: 'landscape', imgSrc: 'images/Ibaraki/landscape/KasugaTakamiya.jpg', text: 'Historic Kasuga Takamiya with rich cultural heritage!' },
+            { type: 'food',      imgSrc: 'images/Ibaraki/foods/MatsusakaBeef.jpg', text: 'Premium Matsusaka Beef a culinary masterpiece!' },
+            { type: 'landscape', imgSrc: 'images/Ibaraki/landscape/Shirakawa.jpg', text: 'Charming Shirakawa with traditional architecture!' }
+        ];
+    </script>
+
+    <script src="city.js"></script>
+
+</body>
+</html>

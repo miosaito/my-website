@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <title>Bangkok Memories</title>
+    <link rel="stylesheet" href="city.css">
+</head>
+
+<body class="theme-thailand">
+
+    <header class="page-header">
+        <h1>The memories of Bangkok</h1>
+        <p>Thailand</p>
+    </header>
+
+    <button id="back-map-btn" class="fixed-btn">← Back to Map</button>
+    <button id="reset-btn" class="fixed-btn">Reset</button>
+    <button id="spawn-btn" class="fixed-btn">
+        <div id="btn-fill"></div>
+    </button>
+
+    <script>
+        const memories = [
+            { type: 'food',      imgSrc: 'images/Bangkok/foods/PadThai.jpg', text: 'Authentic Pad Thai incredibly delicious!' },
+            { type: 'landscape', imgSrc: 'images/Bangkok/landscape/GrandPalace.jpg', text: 'Magnificent Grand Palace truly impressive!' },
+            { type: 'food',      imgSrc: 'images/Bangkok/foods/Mango Sticky Rice.png', text: 'Delicious Mango Sticky Rice the best dessert!' },
+            { type: 'landscape', imgSrc: 'images/Bangkok/landscape/SuanPhlu.jpg', text: 'Beautiful Suan Phlu market vibrant atmosphere!' },
+            { type: 'food',      imgSrc: 'images/Bangkok/foods/GaiYang.jpg', text: 'Yummy Gai Yang chicken perfectly seasoned!' },
+            { type: 'landscape', imgSrc: 'images/Bangkok/landscape/WatPho.jpg', text: 'Sacred Wat Pho temple with stunning architecture!' },
+            { type: 'food',      imgSrc: 'images/Bangkok/foods/KhaoNiaoMaMuang.jpg', text: 'Tasty Khao Niao Ma Muang rice with coconut milk!' },
+            { type: 'landscape', imgSrc: 'images/Bangkok/landscape/LumpiniPark.jpg', text: 'Peaceful Lumpini Park a great place to relax!' },
+            { type: 'food',      imgSrc: 'images/Bangkok/foods/SomTam.jpg', text: 'Spicy Som Tam salad a perfect balance of flavors!' },
+            { type: 'landscape', imgSrc: 'images/Bangkok/landscape/TaladNoen.jpg', text: 'Charming Talad Noen night market full of life!' }
+        ];
+    </script>
+
+    <script src="city.js"></script>
+
+</body>
+</html>
