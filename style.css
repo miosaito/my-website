@@ -512,27 +512,30 @@ p { margin-top: 10px; }
 /* =========================================
    📱 スマホ版・強制表示版のスタイル調整
    ========================================= */
-@media (max-width: 768px), body.force-mobile-view {
+/* =========================================
+   📱 スマホ版のスタイル調整（修正版）
+   ========================================= */
 
+/* 1. 実際のスマホ画面で見た時の設定 */
+@media (max-width: 768px) {
     /* ① ナビゲーションの文字を小さくして1列に */
     header nav {
         justify-content: center;
         width: 100%;
-        gap: 8px; /* 間隔を少し詰める */
+        gap: 8px;
     }
     header nav a {
-        font-size: 15px !important; /* 25pxの約0.6倍 */
+        font-size: 15px !important;
         margin: 0 5px !important;
-        white-space: nowrap; /* 改行を防ぐ */
+        white-space: nowrap;
     }
 
     /* ② Heroセクションの文字調整と写真のずらし */
     .hero {
-        /* 背景画像を3cm（約113px）分、左にずらす */
         background-position: calc(50% + 113px) center !important;
     }
     .hero h1 {
-        font-size: 2rem !important; /* 見切れないサイズに */
+        font-size: 2rem !important;
         width: 90%;
         margin: 0 auto;
     }
@@ -543,11 +546,10 @@ p { margin-top: 10px; }
     }
 
     /* ④ プロジェクト詳細ページ（project1~3）の文字サイズ */
-    /* container内のタイトル、本文、戻るボタン */
     .container h1 { font-size: 1.8rem !important; }
     .container h2 { font-size: 1.5rem !important; }
     .container p, .container li { 
-        font-size: 16px !important; /* Wikipediaの標準的な読みやすさ */
+        font-size: 16px !important; 
         line-height: 1.6;
     }
     .back-link, .back-home-btn {
@@ -561,8 +563,52 @@ p { margin-top: 10px; }
     #toggle-map, #back-home {
         font-size: 1.1rem !important;
         padding: 10px 15px !important;
-        width: auto !important; /* 円形から少し横長に変更して文字を見やすく */
+        width: auto !important;
         height: auto !important;
         border-radius: 30px !important;
     }
+}
+
+/* 2. PC上で「スマホ版」ボタンを押した時（強制スマホ表示）用の設定 */
+body.force-mobile-view header nav {
+    justify-content: center;
+    width: 100%;
+    gap: 8px;
+}
+body.force-mobile-view header nav a {
+    font-size: 15px !important;
+    margin: 0 5px !important;
+    white-space: nowrap;
+}
+body.force-mobile-view .hero {
+    background-position: calc(50% + 113px) center !important;
+}
+body.force-mobile-view .hero h1 {
+    font-size: 2rem !important;
+    width: 90%;
+    margin: 0 auto;
+}
+body.force-mobile-view .hero p {
+    font-size: 1rem !important;
+    width: 90%;
+    margin: 0 auto;
+}
+body.force-mobile-view .container h1 { font-size: 1.8rem !important; }
+body.force-mobile-view .container h2 { font-size: 1.5rem !important; }
+body.force-mobile-view .container p, body.force-mobile-view .container li { 
+    font-size: 16px !important; 
+    line-height: 1.6;
+}
+body.force-mobile-view .back-link, body.force-mobile-view .back-home-btn {
+    font-size: 1.2rem !important;
+    padding: 12px 24px !important;
+    display: inline-block;
+    margin-top: 20px;
+}
+body.force-mobile-view #toggle-map, body.force-mobile-view #back-home {
+    font-size: 1.1rem !important;
+    padding: 10px 15px !important;
+    width: auto !important;
+    height: auto !important;
+    border-radius: 30px !important;
 }
