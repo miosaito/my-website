@@ -2,15 +2,29 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta id="viewport-meta" name="viewport" content="width=device-width, initial-scale=1.0">
   <title>My Portfolio</title>
   <link rel="stylesheet" href="style.css">
   <style>
-    body { font-family: Arial, sans-serif; margin:0; overflow: auto !important; }
-    header { background:#0a4f6d; color:#fff; display:flex; justify-content:space-between; align-items:center; padding:15px; background:#0a4f6d; color:#fff; }
+    body { font-family: Arial, sans-serif; margin:0; overflow: auto !important; transition: all 0.3s ease; }
+    
+    /* ===== ヘッダーのレイアウト ===== */
+    header { 
+      background:#0a4f6d; color:#fff; 
+      display:flex; justify-content:space-between; align-items:center; 
+      padding:15px; 
+      /* ヘッダーを背景画像の上に重ねる場合、ここを調整（今回はそのまま） */
+    }
+    .header-left {
+      display: flex;
+      align-items: center;
+      gap: 15px; /* ボタンとタイトルの隙間 */
+    }
+    h2 { color:#0a4f6d; margin-bottom:15px; }
+    header h2 { color: #fff; margin: 0; } /* ヘッダー内の文字色は白、余白リセット */
+    
     nav a { margin-left:15px; color:#fff; text-decoration:none; }
     .section { padding:40px 30px; max-width:900px; margin:auto; }
-    h2 { color:#0a4f6d; margin-bottom:15px; }
     ul { line-height:1.8; }
     .projects { display:flex; gap:20px; flex-wrap:wrap; }
     .card { width:250px; text-decoration:none; color:#000; background:#fff; border-radius:10px; overflow:hidden; box-shadow:0 2px 5px rgba(0,0,0,0.1); }
@@ -18,14 +32,127 @@
     .card h3 { margin:10px; }
     .card p { margin:10px; }
     footer { text-align:center; padding:15px; background:#222; color:#fff; }
+    
+    /* 🌟 Profileの字下げ用CSS（維持） */
+    .profile-text p {
+      text-indent: 2.5em; /* 先頭を2.5文字分（約2〜3単語分）空ける */
+      margin-top: 0;
+      margin-bottom: 12px;
+      line-height: 1.6;
+    }
+    
+    /* 🌟 メールリンクの色調整（維持） */
+    .email-link {
+      color: #0a4f6d;
+      text-decoration: underline;
+      font-weight: bold;
+    }
+
+    /* 🌟 切り替えボタンのデザイン */
+    .toggle-btn {
+      background: #ffffff;
+      color: #0a4f6d;
+      border: none;
+      padding: 6px 12px;
+      border-radius: 4px;
+      cursor: pointer;
+      font-weight: bold;
+      font-size: 0.8rem;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+      transition: background 0.2s, transform 0.1s;
+    }
+    .toggle-btn:active { transform: scale(0.95); }
+
+    /* =========================================
+       💻 Hero セクション（画面いっぱいの背景画像）
+       ========================================= */
+    .hero {
+      width: 100%;
+      height: 100vh; /* 画面の高さいっぱい */
+      /* 👇ここに背景画像のパスを指定してください */
+      /* background-image: url('images/your-hero-image.jpg'); */
+      /* 画像がない場合のダミー画像（変更してください） */
+      background-image: url('images/profile2.jpg'); 
+      background-size: cover; /* 画像をセクション全体に覆う */
+      background-position: center; /* 中央配置 */
+      background-repeat: no-repeat;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      color: #fff; /* テキストの色を白に */
+      text-align: center;
+      position: relative; /* オーバーレイ用 */
+      /* 既存の .section のスタイルを上書き */
+      max-width: 100% !important;
+      margin: 0 !important;
+      padding: 0 !important;
+    }
+    
+    /* 背景画像上のテキストを見えやすくするための暗いオーバーレイ */
+    .hero::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; width: 100%; height: 100%;
+      background: rgba(0, 0, 0, 0.4); /* 黒の半透明 */
+      z-index: 1;
+    }
+    
+    .hero h1, .hero p {
+      position: relative;
+      z-index: 2; /* オーバーレイより前に出す */
+      margin: 0;
+    }
+    .hero h1 { font-size: 4rem; margin-bottom: 10px; } /* 文字サイズ大きく */
+    .hero p { font-size: 2rem; }
+
+    /* =========================================
+       📱 スマホ用レイアウト（画面幅が768px以下の時）
+       ========================================= */
+    @media (max-width: 768px) {
+      header { flex-direction: column; align-items: flex-start; gap: 15px; }
+      nav { display: flex; flex-wrap: wrap; gap: 10px; }
+      nav a { margin-left: 0; margin-right: 15px; }
+      .projects { flex-direction: column; align-items: center; }
+      .card { width: 100%; max-width: 350px; } /* スマホでは横幅いっぱいに広げる */
+      .section { padding: 30px 20px; }
+      
+      /* スマホ版でのHeroの調整 */
+      .hero { height: 70vh; } /* 高さを少し低く */
+      .hero h1 { font-size: 2.5rem; }
+      .hero p { font-size: 1.2rem; }
+    }
+
+    /* =========================================
+       💻 PC上で「スマホ版」を強制表示するためのクラス
+       ========================================= */
+    body.force-mobile-view {
+      max-width: 414px; /* 一般的なスマホの横幅 */
+      margin: 0 auto;
+      box-shadow: 0 0 20px rgba(0,0,0,0.3);
+      border-left: 1px solid #ccc;
+      border-right: 1px solid #ccc;
+    }
+    body.force-mobile-view header { flex-direction: column; align-items: flex-start; gap: 15px; }
+    body.force-mobile-view nav { display: flex; flex-wrap: wrap; gap: 10px; }
+    body.force-mobile-view nav a { margin-left: 0; margin-right: 15px; }
+    body.force-mobile-view .projects { flex-direction: column; align-items: center; }
+    body.force-mobile-view .card { width: 100%; max-width: 350px; }
+    
+    /* PC上で「スマホ版」強制表示時のHeroの調整 */
+    body.force-mobile-view .hero { height: 70vh; }
+    body.force-mobile-view .hero h1 { font-size: 2.5rem; }
+    body.force-mobile-view .hero p { font-size: 1.2rem; }
+
   </style>
 </head>
 <body>
   
-
-<!-- NAVBAR -->
 <header>
-  <h2>My Portfolio</h2>
+  <div class="header-left">
+    <button id="view-toggle-btn" class="toggle-btn">View Mobile Version</button>
+    <!-- <h2>My Portfolio</h2> -->
+  </div>
   <nav>
     <a href="#about">Profile</a>
     <a href="#projects">Projects</a>
@@ -34,49 +161,43 @@
   </nav>
 </header>
 
-<!-- HERO -->
 <section class="hero">
   <h1>Mio Saito</h1>
   <p>Electrical and Computer Science Engineer Student</p>
 </section>
 
-<!-- PROFILE -->
-
 <section id="about" class="section profile-card"> 
   <h2>Profile</h2>
-  <p>
-  I am a passionate Electrical and Computer Science Engineer student with a keen interest in technology and innovation.
-  I have been participating in various projects so far, and I have developed leadership skills as a team leader as well as the ability to think of new business ideas. Going forward, I will continue to focus on my studies and explore new opportunities in the field.<br>
-  My future dream is to become an engineer who can work globally and contribute internationally. 
-  </p>
+  <div class="profile-text">
+    <p>I am a passionate Electrical and Computer Science Engineer student with a keen interest in technology and innovation. I have been participating in various projects so far, and I have developed leadership skills as a team leader as well as the ability to think of new business ideas. Going forward, I will continue to focus on my studies and explore new opportunities in the field.</p>
+    <p>My future dream is to become an engineer who can work globally and contribute internationally.</p>
+  </div>
 
-<a href="profile.html" class="btn-profile"> View Full Profile</a>
+  <a href="profile.html" class="btn-profile"> View Full Profile</a>
 </section>
 
-<!-- PROJECTS -->
 <section id="projects" class="section">
   <h2>Projects</h2>
 
   <div class="projects">
-  <a href="project1.html" class="card">
-  <img src="images/satellite1.jpg">
-  <h3>Graduation Research</h3>
-  <p>Magnetic nozzle PPT for satellite attitude control</p>
-  </a>
+    <a href="project1.html" class="card">
+      <img src="images/satellite1.jpg" alt="Graduation Research">
+      <h3>Graduation Research</h3>
+      <p>Magnetic nozzle PPT for satellite attitude control</p>
+    </a>
 
-  <a href="project2.html" class="card">
-  <img src="images/Kimono1.jpg">
-  <h3>AI Kimono Project</h3>
-  <p>Using AI for making kimono</p>
-  </a>
+    <a href="project2.html" class="card">
+      <img src="images/Kimono1.jpg" alt="AI Kimono Project">
+      <h3>AI Kimono Project</h3>
+      <p>Using AI for making kimono</p>
+    </a>
 
-  <a href="project3.html" class="card">
-  <img src="images/walkingBattery.jpg">
-  <h3>Walking Battery</h3>
-  <p>Generate power while walking</p>
-  </a>
+    <a href="project3.html" class="card">
+      <img src="images/walkingBattery.jpg" alt="Walking Battery">
+      <h3>Walking Battery</h3>
+      <p>Generate power while walking</p>
+    </a>
   </div>
-
 </section>
 
 <section id="travel" class="section">
@@ -88,21 +209,64 @@
 <script src="//unpkg.com/globe.gl"></script>
 <script src="travel.js"></script>
 
-
-<!-- CONTACT -->
 <section id="contact" class="section">
   <h2>Contact</h2>
-  <p>Email: e2217@s.akashi.ac.jp</p>
+  <p>Email: <a href="https://mail.google.com/mail/?view=cm&fs=1&to=e2217@s.akashi.ac.jp" target="_blank" class="email-link">e2217@s.akashi.ac.jp</a></p>
+
   <div class="sns-links">
     <a href="https://www.facebook.com/profile.php?id=100078224116276" target="_blank" class="sns-btn">Facebook</a> | 
-    <a href="https://www.linkedin.com/feed/" target="_blank" class="sns-btn">LinkdIn</a>
+    <a href="https://www.linkedin.com/feed/" target="_blank" class="sns-btn">LinkedIn</a> 
   </div>
 </section>
 
-<!-- FOOTER -->
 <footer>
   <p>&copy; 2026 Mio Saito</p>
 </footer>
+
+<script>
+  const toggleBtn = document.getElementById('view-toggle-btn');
+  const viewportMeta = document.getElementById('viewport-meta');
+  
+  let isMobileView = window.innerWidth <= 768;
+
+  function updateButtonText() {
+    if (isMobileView) {
+      toggleBtn.textContent = "View Desktop Version";
+    } else {
+      toggleBtn.textContent = "View Mobile Version";
+    }
+  }
+
+  updateButtonText();
+
+  toggleBtn.addEventListener('click', () => {
+    if (isMobileView) {
+      // スマホ表示 → PC表示
+      document.body.classList.remove('force-mobile-view');
+      viewportMeta.setAttribute('content', 'width=1024'); 
+      isMobileView = false;
+    } else {
+      // PC表示 → スマホ表示
+      document.body.classList.add('force-mobile-view');
+      viewportMeta.setAttribute('content', 'width=device-width, initial-scale=1.0'); 
+      isMobileView = true;
+    }
+    
+    // ウィンドウのリサイズイベントを発火させてGlobe(地球儀)のサイズを再計算させる
+    window.dispatchEvent(new Event('resize'));
+    updateButtonText();
+  });
+
+  window.addEventListener('resize', () => {
+    if (!document.body.classList.contains('force-mobile-view')) {
+      const currentIsMobile = window.innerWidth <= 768;
+      if (isMobileView !== currentIsMobile) {
+        isMobileView = currentIsMobile;
+        updateButtonText();
+      }
+    }
+  });
+</script>
 
 </body>
 </html>
