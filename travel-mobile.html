@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Travel Globe - Mobile Preview</title>
+    
+    <script src="https://unpkg.com/three"></script>
+    <script src="https://unpkg.com/globe.gl"></script>
+
+    <style>
+        /* =========================================
+           💻 PC表示用：画面中央にスマホサイズを固定
+           ========================================= */
+        body {
+            margin: 0;
+            padding: 0;
+            background-color: #1a1a1a; 
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            overflow: hidden;
+            font-family: Arial, sans-serif;
+        }
+
+        #mobile-container {
+            width: 100%;
+            max-width: 430px; /* スマホの一般的な横幅 */
+            height: 100vh;    
+            background-color: #000011; 
+            position: relative;
+            box-shadow: 0 0 50px rgba(0,0,0,0.8);
+            overflow: hidden;
+            /* コンテナ自体を中央寄せにするための設定 */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        /* =========================================
+           📱 ボタン設定（2倍サイズ）
+           ========================================= */
+        .mobile-btn {
+            position: absolute;
+            z-index: 10;
+            border: none;
+            cursor: pointer;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.4);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        .back-home-btn {
+            bottom: 45px;
+            left: 25px;
+            padding: 10px 15px; /* 以前の調整より少し大きく */
+            font-size: 1.0rem;  /* 2倍サイズ */
+            background-color: rgba(61, 64, 81, 0.9);
+            color: white;
+            border-radius: 60px;
+        }
+
+        .map-toggle-btn {
+            bottom: 40px;
+            right: 25px;
+            width: 80px;  /* 2倍サイズ */
+            height: 80px;
+            font-size: 0.9rem; /* 2倍サイズ */
+            border-radius: 50%;
+            background-color: #f2ecf8;
+            color: #0a4f6d;
+            border: 4px solid #0a4f6d;
+            text-align: center;
+            line-height: 1.2;
+        }
+
+        /* 地球儀の表示エリア */
+        #globe-viz {
+            width: 100%;
+            height: 100%;
+            position: absolute;
+            top: 0;
+            left: 0;
+        }
+    </style>
+</head>
+<body>
+
+    <div id="mobile-container">
+        
+        <a href="index.html" class="mobile-btn back-home-btn">← Home</a>
+        
+        <button id="toggle-map" class="mobile-btn map-toggle-btn">
+            Earth<br>Daylight
+        </button>
+
+        <div id="globe-viz"></div>
+
+    </div>
+
+    <script>
+        const container = document.getElementById('globe-viz');
+        const mobileContainer = document.getElementById('mobile-container');
+
+        // 現在のコンテナサイズを取得
+        const width = mobileContainer.offsetWidth;
+        const height = mobileContainer.offsetHeight;
+
+        const myTrips = [
+            { name: "New York", lat: 40.7128, lng: -74.0060, file: "newyork.html" },
+            { name: "Bangkok", lat: 13.7563, lng: 100.5018, file: "bangkok.html" },
+            { name: "Okinawa", lat: 26.2124, lng: 127.6809, file: "okinawa.html" },
+            { name: "Milano", lat: 45.4642, lng: 9.1900, file: "milano.html" },
+            { name: "Ibaraki", lat: 36.3418, lng: 140.4468, file: "ibaraki.html" },
+            { name: "San Francisco", lat: 37.7749, lng: -122.4194, file: "sanfrancisco.html" }
+        ];
+
+        const mapReal = 'https://unpkg.com/three-globe/example/img/earth-blue-marble.jpg';
+        const mapArt = 'https://unpkg.com/three-globe/example/img/earth-night.jpg';
+        let isRealMap = true;
+
+        // 地球儀の構築
+        const globe = Globe()(container)
+            .width(width)   // 🌟初期化時に幅を明示的に指定
+            .height(height) // 🌟初期化時に高さを明示的に指定
+            .globeImageUrl(mapReal)
+            .backgroundColor('#000011')
+            .showAtmosphere(true)
+            .htmlElementsData(myTrips)
+            .htmlElement(d => {
+                const el = document.createElement('div');
+                
+                // 🌟 ピンと都市名を3倍に設定
+                const pinSize = 28;   // 30 * 3
+                const fontSize = 13;  // 14 * 3
+                const marginTop = -15;
+
+                el.innerHTML = `
+                    <div style="cursor: pointer; text-align: center; pointer-events: auto;">
+                        <div style="font-size: ${pinSize}px;">📍</div>
+                        <div style="color: white; font-weight: bold; font-size: ${fontSize}px; text-shadow: 4px 4px 8px black; margin-top: ${marginTop}px;">
+                            ${d.name}
+                        </div>
+                    </div>
+                `;
+
+                el.onclick = (event) => {
+                    event.stopPropagation();
+                    window.location.href = d.file;
+                };
+
+                return el;
+            });
+
+        globe.controls().autoRotate = true;
+        globe.controls().autoRotateSpeed = 0.6;
+        
+        // 視点調整
+        globe.pointOfView({ lat: 20, lng: 130, altitude: 2.8 });
+
+        const toggleBtn = document.getElementById('toggle-map');
+        toggleBtn.addEventListener('click', () => {
+            isRealMap = !isRealMap;
+            globe.globeImageUrl(isRealMap ? mapReal : mapArt);
+            toggleBtn.innerHTML = isRealMap ? 'Earth<br>Daylight' : 'Earth<br>Night';
+        });
+
+        // 画面リサイズ対応
+        window.addEventListener('resize', () => {
+            const newWidth = mobileContainer.offsetWidth;
+            const newHeight = mobileContainer.offsetHeight;
+            globe.width(newWidth);
+            globe.height(newHeight);
+        });
+    </script>
+</body>
+</html>

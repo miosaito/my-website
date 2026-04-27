@@ -1,23 +1,35 @@
+// --- travel.js の冒頭部分 ---
+
 const containerSmall = document.getElementById('globeViz');
 const containerLarge = document.getElementById('large-globe');
 
-// travel.js の index.html用処理
+// index.html用の小さな地球儀の設定
 if (containerSmall) {
     const globeSmall = Globe()(containerSmall)
-        // パスが正しいか確認（//から始まる、またはhttps://から始まる）
         .globeImageUrl('https://unpkg.com/three-globe/example/img/earth-blue-marble.jpg')
         .backgroundColor('rgba(0,0,0,0)')
         .width(300)
         .height(300)
         .showAtmosphere(true)
         .onGlobeClick(() => {
-            window.location.href = 'travel.html';
+            // 🌟 モバイル表示モードかどうかを判定
+            const savedViewMode = localStorage.getItem('viewMode');
+            const isMobileWidth = window.innerWidth <= 768;
+
+            // 「モバイル版を表示」ボタンが押されている、または実際のスマホ画面幅の場合
+            if (savedViewMode === 'mobile' || isMobileWidth) {
+                window.location.href = 'travel-mobile.html'; // モバイル専用ページへ
+            } else {
+                window.location.href = 'travel.html';        // 通常のPCページへ
+            }
         });
+        
     globeSmall.controls().autoRotate = true;
     globeSmall.controls().autoRotateSpeed = 1.0;
     globeSmall.controls().enableZoom = false;
 }
 
+// (これ以降の containerLarge の処理などは変更なし)
 if (containerLarge) {
     const myTrips = [
         { name: "New York", lat: 40.7128, lng: -74.0060, file: "newyork.html" },
