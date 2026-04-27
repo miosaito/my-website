@@ -127,6 +127,45 @@ footer {
     display: block; /* 下に余計な隙間ができるのを防ぐ */
 }
 
+/* 2. PC上で「スマホ版」ボタンを押した時（強制スマホ表示）用の設定 */
+.force-mobile-view header nav {
+    justify-content: center;
+    width: 100%;
+    gap: 8px;
+}
+.force-mobile-view header nav a {
+    font-size: 15px !important;
+    margin: 0 5px !important;
+    white-space: nowrap;
+}
+
+.force-mobile-view .hero h1 {
+    font-size: 2rem !important;
+    width: 90%;
+    margin: 0 auto;
+}
+.force-mobile-view .hero p {
+    font-size: 1rem !important;
+    width: 90%;
+    margin: 0 auto;
+}
+
+/* 📱 Mobile */
+@media (max-width: 768px) {
+    .hero {
+        background-image: url("images/profile3.jpg") !important;
+        background-position: center center !important;
+        background-size: cover !important;
+    }
+}
+
+/* 📱 Force mobile view */
+.force-mobile-view .hero {
+    background-image: url("images/profile3.jpg") !important;
+    background-position: center center !important;
+    background-size: cover !important;
+}
+
 .hero {
   height: 90vh;
   background-image: url("images/profile2.jpg") center/cover no-repeat;
@@ -150,6 +189,24 @@ footer {
   font-size: 20px;
   transform: translateX(-120px);
 }
+
+/* 🌟 mobile hero fix 完全版 */
+.force-mobile-view .hero h1 {
+    font-size: 2rem !important;
+    width: 90%;
+    margin: 0 auto;
+    line-height: 1.2;
+    transform: translateX(0) !important;
+}
+
+.force-mobile-view .hero p {
+    font-size: 1rem !important;
+    width: 90%;
+    margin: 10px auto 0;
+    transform: translateX(0) !important;
+}
+
+
 
 .sns-links {
     margin-top: 20px;
@@ -205,6 +262,16 @@ p { margin-top: 10px; }
     display: inline-block;
     padding-bottom: 5px;
     text-align: left !important ;
+}
+
+.force-mobile-view .profile-card {
+    margin: 80px 20px 0px 20px !important;
+    padding: 40px 20px; /* ← mobile用に少しコンパクトに */
+}
+
+.force-mobile-view section {
+    margin-top: 0px !important;
+    margin-bottom: 0px !important;
 }
 
 /* ボタンのデザイン */
@@ -530,10 +597,7 @@ p { margin-top: 10px; }
         white-space: nowrap;
     }
 
-    /* ② Heroセクションの文字調整と写真のずらし */
-    .hero {
-        background-position: calc(50% + 113px) center !important;
-    }
+   
     .hero h1 {
         font-size: 2rem !important;
         width: 90%;
@@ -569,43 +633,20 @@ p { margin-top: 10px; }
     }
 }
 
-/* 2. PC上で「スマホ版」ボタンを押した時（強制スマホ表示）用の設定 */
-body.force-mobile-view header nav {
-    justify-content: center;
-    width: 100%;
-    gap: 8px;
-}
-body.force-mobile-view header nav a {
-    font-size: 15px !important;
-    margin: 0 5px !important;
-    white-space: nowrap;
-}
-body.force-mobile-view .hero {
-    background-position: calc(50% + 113px) center !important;
-}
-body.force-mobile-view .hero h1 {
-    font-size: 2rem !important;
-    width: 90%;
-    margin: 0 auto;
-}
-body.force-mobile-view .hero p {
-    font-size: 1rem !important;
-    width: 90%;
-    margin: 0 auto;
-}
-body.force-mobile-view .container h1 { font-size: 1.8rem !important; }
-body.force-mobile-view .container h2 { font-size: 1.5rem !important; }
-body.force-mobile-view .container p, body.force-mobile-view .container li { 
+
+.force-mobile-view .container h1 { font-size: 1.8rem !important; }
+.force-mobile-view .container h2 { font-size: 1.5rem !important; }
+.force-mobile-view .container p, .force-mobile-view .container li { 
     font-size: 16px !important; 
     line-height: 1.6;
 }
-body.force-mobile-view .back-link, body.force-mobile-view .back-home-btn {
+.force-mobile-view .back-link, .force-mobile-view .back-home-btn {
     font-size: 1.2rem !important;
     padding: 12px 24px !important;
     display: inline-block;
     margin-top: 20px;
 }
-body.force-mobile-view #toggle-map, body.force-mobile-view #back-home {
+.force-mobile-view #toggle-map, .force-mobile-view #back-home {
     font-size: 1.1rem !important;
     padding: 10px 15px !important;
     width: auto !important;

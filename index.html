@@ -73,7 +73,7 @@
       /* background-image: url('images/your-hero-image.jpg'); */
       /* 画像がない場合のダミー画像（変更してください） */
       background-image: url('images/profile2.jpg'); 
-      background-size: cover; /* 画像をセクション全体に覆う */
+      background-size: cover !important; /* 画像をセクション全体に覆う */
       background-position: center; /* 中央配置 */
       background-repeat: no-repeat;
       display: flex;
@@ -147,8 +147,24 @@
   </style>
 </head>
 <body>
-  
-<header>
+  <script>
+    (function() {
+      const savedMode = localStorage.getItem('viewMode');
+      // スマホモードのメモがある、または初回アクセスで画面幅が狭い場合
+      if (savedMode === 'mobile' || (!savedMode && window.innerWidth <= 768)) {
+        document.body.classList.add('force-mobile-view');
+        
+        // Viewport（画面の拡大縮小設定）も最速で切り替える
+        const meta = document.getElementById('viewport-meta') || document.querySelector('meta[name="viewport"]');
+        if (meta) {
+          meta.setAttribute('content', 'width=device-width, initial-scale=1.0');
+        }
+      }
+      console.log('HTML class:', document.documentElement.classList);
+    })();
+  </script>
+
+  <header>
   <div class="header-left">
     <button id="view-toggle-btn" class="toggle-btn">View Mobile Version</button>
     <!-- <h2>My Portfolio</h2> -->
@@ -225,47 +241,64 @@
 
 <script>
   const toggleBtn = document.getElementById('view-toggle-btn');
-  const viewportMeta = document.getElementById('viewport-meta');
+  const viewportMeta = document.getElementById('viewport-meta') || document.querySelector('meta[name="viewport"]');
   
-  let isMobileView = window.innerWidth <= 768;
+  // 🌟 1. ローカルストレージから前回の状態（メモ）を読み込む
+  const savedViewMode = localStorage.getItem('viewMode');
+  
+  let isMobileView = false;
 
-  function updateButtonText() {
-    if (isMobileView) {
-      toggleBtn.textContent = "View Desktop Version";
-    } else {
-      toggleBtn.textContent = "View Mobile Version";
-    }
+  // 🌟 2. メモがあればそれを優先し、なければ画面幅で判断する
+  if (savedViewMode === 'mobile') {
+    isMobileView = true;
+  } else if (savedViewMode === 'desktop') {
+    isMobileView = false;
+  } else {
+    isMobileView = window.innerWidth <= 768;
   }
 
-  updateButtonText();
+  function setMobileView() {
+  localStorage.setItem('viewMode', 'mobile');
+  location.reload();
+}
 
-  toggleBtn.addEventListener('click', () => {
+function setDesktopView() {
+  localStorage.setItem('viewMode', 'desktop');
+  location.reload();
+}
+
+  // 🌟 3. 画面の表示を切り替える処理をまとめる
+  function applyViewMode() {
     if (isMobileView) {
-      // スマホ表示 → PC表示
-      document.body.classList.remove('force-mobile-view');
-      viewportMeta.setAttribute('content', 'width=1024'); 
-      isMobileView = false;
-    } else {
-      // PC表示 → スマホ表示
       document.body.classList.add('force-mobile-view');
-      viewportMeta.setAttribute('content', 'width=device-width, initial-scale=1.0'); 
-      isMobileView = true;
+      if (viewportMeta) viewportMeta.setAttribute('content', 'width=device-width, initial-scale=1.0');
+    } else {
+      document.body.classList.remove('force-mobile-view');
+      if (viewportMeta) viewportMeta.setAttribute('content', 'width=1024');
+    }
+    
+    if (toggleBtn) {
+      toggleBtn.textContent = isMobileView ? "View Desktop Version" : "View Mobile Version";
     }
     
     // ウィンドウのリサイズイベントを発火させてGlobe(地球儀)のサイズを再計算させる
     window.dispatchEvent(new Event('resize'));
-    updateButtonText();
-  });
+  }
 
-  window.addEventListener('resize', () => {
-    if (!document.body.classList.contains('force-mobile-view')) {
-      const currentIsMobile = window.innerWidth <= 768;
-      if (isMobileView !== currentIsMobile) {
-        isMobileView = currentIsMobile;
-        updateButtonText();
-      }
-    }
-  });
+  // 🌟 4. ページ読み込み時に1回実行して状態を反映
+  applyViewMode();
+
+  // 🌟 5. ボタンが押されたときの処理
+  if (toggleBtn) {
+    toggleBtn.addEventListener('click', () => {
+      isMobileView = !isMobileView; // 状態を反転
+      
+      // ローカルストレージに新しい状態を保存
+      localStorage.setItem('viewMode', isMobileView ? 'mobile' : 'desktop');
+      
+      applyViewMode(); // 画面に反映
+    });
+  }
 </script>
 
 </body>

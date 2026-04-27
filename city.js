@@ -23,7 +23,6 @@ function initCity() {
     // 🌟 ランダムな順番を記憶する配列
     let randomOrder = [];
 
-    // 🌟 0 から maxPress-1 までの数字をシャッフルする関数
     function shuffleOrder() {
         let arr = Array.from({length: maxPress}, (_, i) => i);
         for (let i = arr.length - 1; i > 0; i--) {
@@ -33,7 +32,7 @@ function initCity() {
         return arr;
     }
 
-    // 初回読み込み時にシャッフルを実行
+    // 🌟 以下の1行を追加して、最初にシャッフルした配列を作っておく
     randomOrder = shuffleOrder();
 
     // --- 🔙 戻るボタン処理 ---
@@ -129,19 +128,30 @@ function initCity() {
 
         const screenW = window.innerWidth;
         
-        // 写真の配置計算部分
+// ==========================================
+// 🌟 ここから：X座標・Y座標のグリッド計算
+// ==========================================
+
+// 1. スマホ表示かどうかを判定 (画面幅、または強制スマホモード)
         const isMobile = window.innerWidth <= 768 || document.body.classList.contains('force-mobile-view');
-        const colCount = isMobile ? 2 : 5; // スマホなら2列、PCなら5列
 
-        const col = i % colCount;
-        const row = Math.floor(i / colCount);
+// 2. 列数を決定 (スマホは2列、PCは5列)
+        const columns = isMobile ? 2 : 5;
 
-        // 配置の間隔もスマホ用に調整
-        const spacingX = isMobile ? (window.innerWidth - 100) / 2 : 170;
-        const spacingY = isMobile ? 180 : 130;
+// 3. 現在のクリック回数から、何行目・何列目に配置するかを計算
+        const col = (pressCount - 1) % columns;
+        const row = Math.floor((pressCount - 1) / columns);
 
-        const finalX = (isMobile ? 40 : 50) + col * spacingX;
-        const finalY = (isMobile ? 150 : 180) + row * spacingY;              
+
+        const sideMargin = 90; // ← これで「約1cm中央寄せ」になる（調整OK）
+        const usableWidth = window.innerWidth - sideMargin * 2;
+        const finalX = sideMargin + (usableWidth / columns) * (col + 0.5) - 80;
+
+// 5. Y座標の計算 (上からの余白 + 行数 × 縦の間隔)
+        const startYOffset = isMobile ? 120 : 160; // 1行目の上部余白（お好みで調整）
+        const rowGap = isMobile ? 220 : 250;       // 行と行の縦の間隔（お好みで調整）
+        const finalY = startYOffset + (row * rowGap);
+
 
         const centerX = screenW * (0.15 + col * 0.175);
 
