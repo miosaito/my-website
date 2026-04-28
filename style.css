@@ -342,6 +342,8 @@ p { margin-top: 10px; }
   color: black;
   display: block;
   transition: 0.3s;
+  background: #fff;
+  color: #000;
 }
 
 .card:hover {
@@ -359,12 +361,12 @@ p { margin-top: 10px; }
 /* ===== CARD TEXT ===== */
 .card h3 {
   margin-top: 10px;
-  color: black;
+  color: black !important;
 }
 
 .card p {
   font-size: 15px;
-  color: #555;
+  color: #555 !important;
 }
 
 
