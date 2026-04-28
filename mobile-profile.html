@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>Profile - Mobile Version</title>
+  <link rel="stylesheet" href="style.css">
+  <style>
+    /* =========================================
+       💻 PC表示用：画面中央にスマホサイズを固定
+       ========================================= */
+    body {
+      margin: 0;
+      padding: 0;
+      background-color: #1a1a1a; 
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      overflow: hidden; 
+      font-family: Arial, sans-serif;
+    }
+
+    #mobile-container {
+      width: 100%;
+      max-width: 430px; 
+      height: 100vh;    
+      background-color: #f4f7f8; 
+      position: relative;
+      box-shadow: 0 0 50px rgba(0,0,0,0.5);
+      overflow-y: auto; 
+      -webkit-overflow-scrolling: touch;
+    }
+
+    /* =========================================
+       📱 モバイル・タイムライン（吹き出しなし）
+       ========================================= */
+    .mobile-header {
+      background: #0a4f6d;
+      color: #fff;
+      padding: 10px 20px;
+      text-align: center;
+    }
+    .mobile-header h1 {
+      font-size: 2.2rem;
+      margin: 0;
+    }
+
+    .container-inner {
+      padding: 20px;
+    }
+
+    .profile-img {
+      width: 100%;
+      max-width: 400px;
+      height: auto;
+      border-radius: 10px;
+      display: block;
+      margin: 0 auto 30px;
+    }
+
+    h2 {
+      color: #0a4f6d;
+      border-bottom: 2px solid #0a4f6d;
+      display: inline-block;
+      margin-bottom: 25px;
+      font-size: 1.6rem;
+    }
+
+    /* タイムライン構造（吹き出し枠を撤去） */
+    .timeline-container {
+      position: relative;
+      padding-left: 0px; /* 線とテキストの間隔 */
+      margin-top: 20px;
+    }
+
+    /* 中央の縦線 */
+    .timeline-container::before {
+      content: '';
+      position: absolute;
+      left: 7px;
+      top: 0;
+      bottom: 0;
+      width: 3px;
+      background: #0a4f6d;
+    }
+
+    .timeline-item {
+      position: relative;
+      margin-bottom: 25px;
+      list-style: none;
+    }
+
+    /* 線上のドット */
+    .timeline-item::before {
+      display: none; /* ドットを非表示にする */
+    } 
+
+    .timeline-date {
+      font-weight: bold;
+      color: #0a4f6d;
+      font-size: 1.0rem;
+      margin-bottom: 0px;
+      margin-left: 0px; /* ドットがない分、少し左に寄せる */
+    }
+
+    /* コンテンツ（枠線や背景をなくし、直接表示） */
+    .timeline-content {
+      background: transparent;
+      padding: 0;
+      border: none;
+      box-shadow: none;
+    }
+
+    .timeline-content h3 {
+      font-size: 1.1rem;
+      margin: 3px 0;
+    }
+
+    .timeline-content h3 a {
+      color: #0a4f6d;
+      text-decoration: underline;
+    }
+
+    .timeline-content p {
+      font-size: 1.0rem;
+      line-height: 1.2;
+      color: #333;
+      margin-top: 0px;
+    }
+
+    .back-home-container { 
+        margin-top: 1px; 
+        padding-bottom: 0px; 
+        text-align: left;
+    }
+
+    .back-home-btn { 
+        position: static !important; 
+        display: inline-block; 
+        background-color: #0a4f6d; 
+        color: white; 
+        padding: 5px 10px !important; 
+        border-radius: 1px; 
+        text-decoration: none; 
+        font-weight: bold;
+        font-size: 0.8rem !important;
+     }
+
+
+    strong {
+      color: #0a4f6d;
+    }
+  </style>
+</head>
+
+<body>
+
+  <div id="mobile-container">
+    
+    <header class="mobile-header">
+      <h1>Profile</h1>
+    </header>
+
+    <div class="container-inner">
+      <img src="images/profile1.jpg" alt="Mio Saito" class="profile-img">
+
+      <section>
+        <h2>Timeline</h2>
+
+        <div class="timeline-container">
+          <ul>
+            <li class="timeline-item">
+              <div class="timeline-date">2006</div>
+              <div class="timeline-content">
+                <h3><a href="https://www.google.com/maps?q=Ibaraki+Prefecture,+Japan" target="_blank">Birth</a></h3>
+                <p>Born in Ibaraki Prefecture, Japan.</p>
+              </div>
+            </li>
+
+            <li class="timeline-item">
+              <div class="timeline-date">2010</div>
+              <div class="timeline-content">
+                <h3><a href="https://www.naokokato.net/" target="_blank">Violin & Ballroom Dancing</a></h3>
+                <p>Started learning the violin and ballroom dancing.</p>
+              </div>
+            </li>
+
+            <li class="timeline-item">
+              <div class="timeline-date">2023</div>
+              <div class="timeline-content">
+                <h3><a href="https://startup.gekkan-kosen.com/" target="_blank">Entrepreneurship Summit</a></h3>
+                <p>Proposed a system to scan and summarize blackboard content.</p>
+              </div>
+            </li>
+
+            <li class="timeline-item">
+              <div class="timeline-date">2024</div>
+              <div class="timeline-content">
+                <h3><a href="https://www.asj.or.jp/jsession/2025haru/files/44T.pdf" target="_blank">Astronomical Research</a></h3>
+                <p>Conducted astronomical research on red supergiants and presented at the Astronomical Society of Japan.</p>
+              </div>
+            </li>
+
+            <li class="timeline-item">
+              <div class="timeline-date">2025</div>
+              <div class="timeline-content">
+                <h3><a href="https://www.akashi.ac.jp/news/2025/20250822kkp001.html" target="_blank">Walking Battery Project</a></h3>
+                <p>Developed "Walking Battery". Recognized by MEXT and invited to <strong>Expo 2025</strong>.</p>
+              </div>
+            </li>
+          </ul>
+        </div>
+
+        <div class="back-home-container">
+          <a href="index.html" class="back-home-btn">← Back to Home</a>
+        </div>
+      </section>
+
+    </div>
+  </div>
+
+</body>
+</html>

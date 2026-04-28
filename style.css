@@ -202,7 +202,7 @@ footer {
 .hero {
   height: 90vh;
   background-image: url("images/profile2.jpg") center/cover no-repeat;
-  color: black;
+  color: white;
   /*-webkit-text-stroke: 1px white; /* 文字の縁を黒くする */
   display: flex;
   flex-direction: column;
@@ -359,10 +359,11 @@ p { margin-top: 10px; }
 /* ===== CARD TEXT ===== */
 .card h3 {
   margin-top: 10px;
+  color: black;
 }
 
 .card p {
-  font-size: 14px;
+  font-size: 15px;
   color: #555;
 }
 

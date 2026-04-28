@@ -35,7 +35,6 @@
     
     /* 🌟 Profileの字下げ用CSS（維持） */
     .profile-text p {
-      text-indent: 2.5em; /* 先頭を2.5文字分（約2〜3単語分）空ける */
       margin-top: 0;
       margin-bottom: 12px;
       line-height: 1.6;
@@ -144,6 +143,8 @@
     body.force-mobile-view .hero h1 { font-size: 2.5rem; }
     body.force-mobile-view .hero p { font-size: 1.2rem; }
 
+
+
   </style>
 </head>
 <body>
@@ -162,6 +163,19 @@
       }
       console.log('HTML class:', document.documentElement.classList);
     })();
+
+    // --- 既存のボタン処理の下に追加 ---
+  
+  // プロフィールへのリンクを自動でモバイル版に振り分ける
+    document.body.addEventListener('click', (e) => {
+    const link = e.target.closest('a');
+    if (link && link.getAttribute('href') === 'profile.html') {
+      if (localStorage.getItem('viewMode') === 'mobile' || window.innerWidth <= 768) {
+        e.preventDefault();
+        window.location.href = 'mobile-profile.html';
+      }
+    }
+  });
   </script>
 
   <header>
@@ -241,59 +255,65 @@
 
 <script>
 const toggleBtn = document.getElementById('view-toggle-btn');
-  const viewportMeta = document.getElementById('viewport-meta') || document.querySelector('meta[name="viewport"]');
-  
-  let isMobileView = window.innerWidth <= 768;
+const viewportMeta = document.getElementById('viewport-meta');
 
-  // 🌟 初回読み込み時にメモを確認
-  const savedViewMode = localStorage.getItem('viewMode');
-  if (savedViewMode === 'mobile') {
-    isMobileView = true;
-  } else if (savedViewMode === 'desktop') {
-    isMobileView = false;
-  }
+let isMobileView = false;
 
-  function updateButtonText() {
+// 初期状態
+const savedViewMode = localStorage.getItem('viewMode');
+
+if (savedViewMode === 'mobile' || (!savedViewMode && window.innerWidth <= 768)) {
+  isMobileView = true;
+  document.body.classList.add('force-mobile-view');
+}
+
+// ボタン表示
+function updateButtonText() {
+  toggleBtn.textContent = isMobileView
+    ? "View Desktop Version"
+    : "View Mobile Version";
+}
+
+// 🔥 リンク書き換え
+function updateProjectLinks() {
+  document.querySelectorAll('a').forEach(link => {
+    const href = link.getAttribute('href');
+    if (!href) return;
+
     if (isMobileView) {
-      toggleBtn.textContent = "View Desktop Version";
+      if (href.startsWith('project') && !href.startsWith('mobile-')) {
+        link.setAttribute('href', 'mobile-' + href);
+      }
     } else {
-      toggleBtn.textContent = "View Mobile Version";
-    }
-  }
-
-  updateButtonText();
-
-  // 🌟 ボタンを押した時の処理
-  toggleBtn.addEventListener('click', () => {
-    if (isMobileView) {
-      // スマホ → PC
-      document.body.classList.remove('force-mobile-view');
-      if (viewportMeta) viewportMeta.setAttribute('content', 'width=1024'); 
-      isMobileView = false;
-    } else {
-      // PC → スマホ
-      document.body.classList.add('force-mobile-view');
-      if (viewportMeta) viewportMeta.setAttribute('content', 'width=device-width, initial-scale=1.0'); 
-      isMobileView = true;
-    }
-    
-    // 🔥【重要】ここで「スマホ版にした」というメモを保存する！
-    localStorage.setItem('viewMode', isMobileView ? 'mobile' : 'desktop');
-    
-    window.dispatchEvent(new Event('resize'));
-    updateButtonText();
-  });
-
-  window.addEventListener('resize', () => {
-    if (!document.body.classList.contains('force-mobile-view')) {
-      const currentIsMobile = window.innerWidth <= 768;
-      if (isMobileView !== currentIsMobile) {
-        isMobileView = currentIsMobile;
-        updateButtonText();
+      if (href.startsWith('mobile-project')) {
+        link.setAttribute('href', href.replace('mobile-', ''));
       }
     }
   });
-  </script>
+}
+
+// 初期実行
+updateButtonText();
+updateProjectLinks();
+
+// 切り替えボタン
+toggleBtn.addEventListener('click', () => {
+  isMobileView = !isMobileView;
+
+  if (isMobileView) {
+    document.body.classList.add('force-mobile-view');
+    viewportMeta.setAttribute('content', 'width=device-width, initial-scale=1.0');
+  } else {
+    document.body.classList.remove('force-mobile-view');
+    viewportMeta.setAttribute('content', 'width=1024');
+  }
+
+  localStorage.setItem('viewMode', isMobileView ? 'mobile' : 'desktop');
+
+  updateButtonText();
+  updateProjectLinks();
+});
+</script>
 
 </body>
 </html>
