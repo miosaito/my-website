@@ -25,7 +25,7 @@ html, body {
 /* ===== スマホ本体 ===== */
 #mobile-container {
   width: 100%;
-  max-width: 430px;
+  max-width: 380px;
   height: 100vh;
 
   display: flex;
@@ -33,20 +33,22 @@ html, body {
   justify-content: flex-start;
   align-items: center;
 
-  box-shadow: 0 0 50px rgba(0,0,0,0.5);
+  box-shadow: 0 0 50px rgba(0,0,0,0.5) !important;
   overflow-y: hidden;
   position: relative;
+
 }
+
 
 /* ===== ヘッダー ===== */
 .page-header {
   text-align: center;
-  color: white;
-  margin-top: -40px;
+  background: none;
+  margin-top: -50px;
 }
 
 .page-header h1 {
-  font-size: 35.55px !important;
+  font-size: 30px !important;
   margin: 0;
 }
 
@@ -89,7 +91,7 @@ html, body {
 
 /* ===== 画像 ===== */
 .memory-item img {
-  width: 80%;
+  width: 70%;
   aspect-ratio: 1 / 1;
   object-fit: cover;
 
@@ -99,7 +101,7 @@ html, body {
 
   display: block;
   margin: 0 auto;
-  margin-bottom: 120px !important;
+  margin-bottom: 135px !important;
 }
 
 /* ===== テキスト（画像の上） ===== */
@@ -109,7 +111,7 @@ html, body {
   left: 50%;
   transform: translateX(-50%);
 
-  width: 80%;
+  width: 70%;
 
   color: white;
   font-size: 0.9rem;
@@ -120,17 +122,17 @@ html, body {
 
   /*background: linear-gradient(transparent, rgba(0,0,0,0.7));*/
   border-radius: 0 0 15px 15px;
-  margin-bottom: 120px !important;
+  margin-bottom: 135px !important;
 }
 
 /* ===== ドット（赤に変更） ===== */
 .indicator-container {
   display: flex;
   gap: 8px;
-  margin-bottom: 20px;
+  margin-bottom: 30px;
 
   position: relative;
-  top: -80px !important;
+  top: -100px !important;
 }
 
 .dot {
@@ -160,9 +162,27 @@ html, body {
   color: white;
 
   border-radius: 50px;
+  border: none;
   cursor: pointer;
   z-index: 999;
 }
+
+#caption {
+  text-align: center;
+  color: black;
+  font-size: 16px;
+  margin-top: -95px;   /* ドットに近づける */
+  padding: 5px 20px;
+
+  width: 80%;
+  max-width: 300px;
+
+  background: white;
+  border-radius: 12px;
+
+  backdrop-filter: blur(5px) !important; /* ちょいオシャレ */
+}
+
 </style>
 </head>
 
@@ -181,6 +201,7 @@ html, body {
   </div>
 
   <div class="indicator-container" id="dots-container"></div>
+  <div id="caption"></div>
 
   <button id="back-map-btn" onclick="location.href='travel-mobile.html'">
     ← Back to Map
@@ -190,30 +211,30 @@ html, body {
 
 <script>
 const memories = [
-  { imgSrc: 'images/NewYork/foods/Pizza.jpg', text: 'Authentic NY Pizza' },
-  { imgSrc: 'images/NewYork/landscape/statueOfLiberty.jpg', text: 'Statue of Liberty' },
-  { imgSrc: 'images/NewYork/foods/woffle.png', text: 'Classic Waffle House' },
-  { imgSrc: 'images/NewYork/landscape/musicSchool.png', text: 'Music School Venue' },
-  { imgSrc: 'images/NewYork/foods/livekitchen.jpg', text: 'Live Kitchen' },
-  { imgSrc: 'images/NewYork/landscape/Libraly.png', text: 'Grand Library' },
-  { imgSrc: 'images/NewYork/foods/stakeshrimp.png', text: 'Steak & Shrimp' },
-  { imgSrc: 'images/NewYork/landscape/rabit1.jpg', text: 'Cute Bunny' },
-  { imgSrc: 'images/NewYork/foods/kinderjoy.png', text: 'Favorite Chocolate' },
-  { imgSrc: 'images/NewYork/landscape/squirrel.png', text: 'Squirrel in City' }
+  { imgSrc: 'images/NewYork/foods/Pizza.jpg', text: 'NY Pizza incredibly huge slice!' },
+  { imgSrc: 'images/NewYork/landscape/statueOfLiberty.jpg', text: 'Statue of Liberty truly inspiring!' },
+  { imgSrc: 'images/NewYork/foods/woffle.png', text: 'Classic Waffle House for breakfast!' },
+  { imgSrc: 'images/NewYork/landscape/musicSchool.png', text: 'Gorgeous music school venue!' },
+  { imgSrc: 'images/NewYork/foods/livekitchen.jpg', text: 'Live kitchen restaurant!' },
+  { imgSrc: 'images/NewYork/landscape/Libraly.png', text: 'Grand library that looks like a castle!' },
+  { imgSrc: 'images/NewYork/foods/stakeshrimp.png', text: 'The best Steak & Shrimp!' },
+  { imgSrc: 'images/NewYork/landscape/rabit1.jpg', text: 'Adorable bunny in the garden!' },
+  { imgSrc: 'images/NewYork/foods/kinderjoy.png', text: 'Favorite Kinder chocolate!' },
+  { imgSrc: 'images/NewYork/landscape/squirrel.png', text: 'Squirrel in the big city!' }
 ];
 
 const track = document.getElementById('image-track');
 const dotsContainer = document.getElementById('dots-container');
 const scrollWrapper = document.getElementById('scroll-wrapper');
+const caption = document.getElementById('caption');
+caption.textContent = memories[0].text;
 
 /* ===== 生成 ===== */
 memories.forEach((m, index) => {
   const item = document.createElement('div');
   item.className = 'memory-item';
   item.innerHTML = `
-    <img src="${m.imgSrc}">
-    <p>${m.text}</p>
-  `;
+    <img src="${m.imgSrc}">`;
   track.appendChild(item);
 
   const dot = document.createElement('div');
@@ -221,12 +242,28 @@ memories.forEach((m, index) => {
   dotsContainer.appendChild(dot);
 });
 
-/* ===== ドット更新 ===== */
+const items = document.querySelectorAll('.memory-item');
+
 scrollWrapper.addEventListener('scroll', () => {
-  const index = Math.round(scrollWrapper.scrollLeft / scrollWrapper.clientWidth);
-  document.querySelectorAll('.dot').forEach((dot, i) => {
-    dot.classList.toggle('active', i === index);
+  let closestIndex = 0;
+  let closestDistance = Infinity;
+
+  items.forEach((item, i) => {
+    const rect = item.getBoundingClientRect();
+    const center = window.innerWidth / 2;
+    const itemCenter = rect.left + rect.width / 2;
+    const distance = Math.abs(center - itemCenter);
+
+    if (distance < closestDistance) {
+      closestDistance = distance;
+      closestIndex = i;
+    }
   });
+
+  document.querySelectorAll('.dot').forEach((dot, i) => {
+    dot.classList.toggle('active', i === closestIndex);
+  });
+  caption.textContent = memories[closestIndex].text;
 });
 </script>
 
