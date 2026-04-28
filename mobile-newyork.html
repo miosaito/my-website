@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>NY Memories - Mobile</title>
+
+<link rel="stylesheet" href="style.css">
+<link rel="stylesheet" href="city.css">
+
+<style>
+/* ===== PCで中央にスマホ表示 ===== */
+html, body {
+  margin: 0;
+  padding: 0;
+  background: white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  overflow: hidden;
+  font-family: Arial, sans-serif;
+}
+
+/* ===== スマホ本体 ===== */
+#mobile-container {
+  width: 100%;
+  max-width: 430px;
+  height: 100vh;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+
+  box-shadow: 0 0 50px rgba(0,0,0,0.5);
+  overflow-y: hidden;
+  position: relative;
+}
+
+/* ===== ヘッダー ===== */
+.page-header {
+  text-align: center;
+  color: white;
+  margin-top: -40px;
+}
+
+.page-header h1 {
+  font-size: 35.55px !important;
+  margin: 0;
+}
+
+.page-header p {
+  font-size: 20px !important;
+  margin-top: 5px;  
+  opacity: 0.8;
+}
+
+/* ===== スクロールエリア ===== */
+.scroll-wrapper {
+  flex: none;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+}
+
+.scroll-wrapper::-webkit-scrollbar {
+  display: none;
+}
+
+/* ===== 画像トラック ===== */
+.image-track {
+  display: flex;
+  padding: 0 40px;
+}
+
+/* ===== 各カード ===== */
+.memory-item {
+  flex: 0 0 calc(430px - 80px);
+  margin: 0 10px;
+  scroll-snap-align: center;
+
+  display: flex;
+  justify-content: center;
+  position: relative;
+}
+
+/* ===== 画像 ===== */
+.memory-item img {
+  width: 80%;
+  aspect-ratio: 1 / 1;
+  object-fit: cover;
+
+  border-radius: 15px;
+  border: 3px solid white;
+  box-shadow: 0 10px 20px rgba(0,0,0,0.5);
+
+  display: block;
+  margin: 0 auto;
+  margin-bottom: 120px !important;
+}
+
+/* ===== テキスト（画像の上） ===== */
+.memory-item p {
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+
+  width: 80%;
+
+  color: white;
+  font-size: 0.9rem;
+  text-align: center;
+
+  padding: 12px;
+  margin: 0;
+
+  /*background: linear-gradient(transparent, rgba(0,0,0,0.7));*/
+  border-radius: 0 0 15px 15px;
+  margin-bottom: 120px !important;
+}
+
+/* ===== ドット（赤に変更） ===== */
+.indicator-container {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 20px;
+
+  position: relative;
+  top: -80px !important;
+}
+
+.dot {
+  width: 10px;
+  height: 10px;
+  background: rgba(255, 0, 0, 0.3); /* ← 赤 */
+  border-radius: 50%;
+    transition: 0.3s;
+}
+
+.dot.active {
+  background: rgb(237, 59, 59); /* ← 赤 */
+  transform: scale(1.2);
+  box-shadow: 0 0 8px rgb(237, 59, 59);
+}
+
+/* ===== ボタン（左下に固定） ===== */
+#back-map-btn {
+  position: absolute !important;
+  bottom: 20px !important;  /* ← 画面内に収める */
+  left: 20px !important;
+
+  padding: 12px 18px;
+  font-size: 14px;
+
+  background: rgba(61,64,81,0.9);
+  color: white;
+
+  border-radius: 50px;
+  cursor: pointer;
+  z-index: 999;
+}
+</style>
+</head>
+
+<!-- ⭐ theme-usaはここに適用 -->
+<body class="theme-usa">
+
+<div id="mobile-container">
+
+  <header class="page-header">
+    <h1>New York Memories</h1>
+    <p>Swipe to see more</p>
+  </header>
+
+  <div class="scroll-wrapper" id="scroll-wrapper">
+    <div class="image-track" id="image-track"></div>
+  </div>
+
+  <div class="indicator-container" id="dots-container"></div>
+
+  <button id="back-map-btn" onclick="location.href='travel-mobile.html'">
+    ← Back to Map
+  </button>
+
+</div>
+
+<script>
+const memories = [
+  { imgSrc: 'images/NewYork/foods/Pizza.jpg', text: 'Authentic NY Pizza' },
+  { imgSrc: 'images/NewYork/landscape/statueOfLiberty.jpg', text: 'Statue of Liberty' },
+  { imgSrc: 'images/NewYork/foods/woffle.png', text: 'Classic Waffle House' },
+  { imgSrc: 'images/NewYork/landscape/musicSchool.png', text: 'Music School Venue' },
+  { imgSrc: 'images/NewYork/foods/livekitchen.jpg', text: 'Live Kitchen' },
+  { imgSrc: 'images/NewYork/landscape/Libraly.png', text: 'Grand Library' },
+  { imgSrc: 'images/NewYork/foods/stakeshrimp.png', text: 'Steak & Shrimp' },
+  { imgSrc: 'images/NewYork/landscape/rabit1.jpg', text: 'Cute Bunny' },
+  { imgSrc: 'images/NewYork/foods/kinderjoy.png', text: 'Favorite Chocolate' },
+  { imgSrc: 'images/NewYork/landscape/squirrel.png', text: 'Squirrel in City' }
+];
+
+const track = document.getElementById('image-track');
+const dotsContainer = document.getElementById('dots-container');
+const scrollWrapper = document.getElementById('scroll-wrapper');
+
+/* ===== 生成 ===== */
+memories.forEach((m, index) => {
+  const item = document.createElement('div');
+  item.className = 'memory-item';
+  item.innerHTML = `
+    <img src="${m.imgSrc}">
+    <p>${m.text}</p>
+  `;
+  track.appendChild(item);
+
+  const dot = document.createElement('div');
+  dot.className = 'dot' + (index === 0 ? ' active' : '');
+  dotsContainer.appendChild(dot);
+});
+
+/* ===== ドット更新 ===== */
+scrollWrapper.addEventListener('scroll', () => {
+  const index = Math.round(scrollWrapper.scrollLeft / scrollWrapper.clientWidth);
+  document.querySelectorAll('.dot').forEach((dot, i) => {
+    dot.classList.toggle('active', i === index);
+  });
+});
+</script>
+
+</body>
+</html>
