@@ -34,10 +34,10 @@ if (containerLarge) {
     const myTrips = [
         { name: "New York", lat: 40.7128, lng: -74.0060, file: "newyork.html" },
         { name: "Bangkok", lat: 13.7563, lng: 100.5018, file: "bangkok.html" },
-        { name: "Okinawa", lat: 26.2124, lng: 127.6809, file: "okinawa.html" },
+        { name: "Okinawa", lat: 26.2124, lng: 127.6809, file: "Okinawa.html" },
         { name: "Milano", lat: 45.4642, lng: 9.1900, file: "milano.html" },
-        { name: "Ibaraki", lat: 36.3418, lng: 140.4468, file: "ibaraki.html" },
-        { name: "San Francisco", lat: 37.7749, lng: -122.4194, file: "sanfrancisco.html" }
+        { name: "Ibaraki", lat: 36.3418, lng: 140.4468, file: "Ibaraki.html" },
+        { name: "San Francisco", lat: 37.7749, lng: -122.4194, file: "SanFrancisco.html" }
     ];
 
     const mapReal = '//unpkg.com/three-globe/example/img/earth-blue-marble.jpg';
